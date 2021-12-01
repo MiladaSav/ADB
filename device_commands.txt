@@ -39,6 +39,8 @@ adb backup -apk -shared -all – f  / Users…
 
 Скриншот
 adb shell screencap /storage/emulated/0/DCIM/screen_ name_app.png
+adb exec-out screencap -p > screen.png (скриншот сохраняется на ПК)
+
 
 Перезагрузить девайс	
 adb reboot
