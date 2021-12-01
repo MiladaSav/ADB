@@ -1,64 +1,27 @@
-adb push <local> <remote> - copy file/dir to device
-adb pull <remote> <local> - copy file/dir from device
-adb sync [ <directory> ] - copy host->device only if changed
-(see 'adb help all')
-adb shell - run remote shell interactively
-adb shell <command> - run remote shell command
-adb emu <command> - run emulator console command
-adb logcat [ <filter-spec> ] - View device log
-adb jdwp - list PIDs of processes hosting a JDWP transport
+Просмотреть список подключенных приложений	adb devices
+Просмотреть список приложений	adb shell pm list packages
 
-adb install [-l] [-r] <file> - push this package file to the device and instal
-l it
-('-l' means forward-lock the app)
-('-r' means reinstall the app, keeping its data
-)
-adb uninstall [-k] <package> - remove this app package from the device
-('-k' means keep the data and cache directories
-)
-adb bugreport - return all information from the device
-that should be included in a bug report.
+pm - package manager
+Найти, где находится приложение	adb shell ‘pm list packages -f | grep name_app’
+findstr
+Удалить приложение	adb uninstall com.android.name_app
+Установить приложение	adb install путь_откуда_name_app.apk
+Установить приложение, если подключено несколько устройств	1.	Найти где находится устройство 
+Вариант: откр. Android Studio
+Build – Build bundle(s) – Build APK(s) (собрать), locate (открывает где лежит билд)
+Загрузить в телеграм – открыть на девайсе - Install
+Загрузить через adb: 
+adb -s install номер_девайса name_app.apk
+Запись логов	adb logcat | grep -rnw “com.android.name_app” > /Users/Name/Android/name_app.log (путь куда сохранить лог)
+Ctrl+C (остановить запись логов)
 
-adb help - show this help message
-adb version - show version num
-
-scripting:
-adb wait-for-device - block until device is online
-adb start-server - ensure that there is a server running
-adb kill-server - kill the server if it is running
-adb get-state - prints: offline | bootloader | device
-adb get-serialno - prints: <serial-number>
-adb status-window - continuously print device status for a specifie
-d device
-adb remount - remounts the /system partition on the device re
-ad-write
-adb root - restarts adb with root permissions
-
-networking:
-adb ppp <tty> [parameters] - Run PPP over USB.
-Note: you should not automatically start a PDP connection.
-<tty> refers to the tty for PPP stream. Eg. dev:/dev/omap_csmi_tty1
-[parameters] - Eg. defaultroute debug dump local notty usepeerdns
-
-adb sync notes: adb sync [ <directory> ]
-<localdir> can be interpreted in several ways:
-
-- If <directory> is not specified, both /system and /data partitions will be u
-pdated.
-
-- If it is "system" or "data", only the corresponding partition
-is updated.
-
-Пример ввода команд
-
-adb push
-Пример - adb push c:\app.apk /data/app
-
-adb pull
-Пример - adb pull /data/app_s/Stock.apk
-
-adb install
-Пример - adb install c:/apps/apps2sd.apk
-
-adb uninstall
-Пример - adb uninstall linda.apk
+-r — включает рекурсивный поиск в текущем каталоге
+-n — выведет номера строк, содержащих поисковый запрос
+-w - ищет весь шаблон, который находится в строке
+Установить старую Андроид-систему, Андроид другого производителя	adb restore /Users/Name/Android/name_app/backup/backup.ab 
+Создать образ из которого возможно установить (Бэк ап)	adb backup -apk -shared -all – f  / Users…
+Скриншот 	adb shell screencap /storage/emulated/0/DCIM/screen_ name_app.png
+Перезагрузить девайс	adb reboot
+Проверить подкл-е adb	adb version
+Отправить файл на девайс	adb push c:/(путь откуда)/имя_файла \sdcard\путь_куда..
+Отправить файл с девайса	adb pull sdcard/путь_откуда/screen_ name_app.png \путь_куда
