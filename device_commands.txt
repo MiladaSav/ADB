@@ -25,6 +25,7 @@ adb -s install номер_девайса name_app.apk
 
 Запись логов
 adb logcat | grep -rnw “com.android.name_app” > /Users/Name/Android/name_app.log (путь куда сохранить лог)
+adb logcat | findstr -rnw "name_app" > /path/name.log (P.SH)
 Ctrl+C (остановить запись логов)
 
 -r — включает рекурсивный поиск в текущем каталоге
